@@ -1,0 +1,33 @@
+class Solution {
+public:
+    vector<int> largestDivisibleSubset(vector<int>& nums) {
+        int n=nums.size();
+        if(n==0)
+            return {};
+        if(n==1)
+            return nums;
+        sort(nums.begin(),nums.end()); //Sort the array
+        vector<int> ans(n,0); //ans[i] -> Size of largest divisible subset starting with i'th index
+        int maxi=n-1; // index with max ans[]
+        for(int i=n-1;i>=0;i--){
+            ans[i]=1;
+            for(int j=i+1;j<n;j++){
+                if(nums[j]%nums[i]==0){
+                    ans[i]=max(ans[i],ans[j]+1);  //LIS variant DP
+                }
+            }
+            if(ans[i]>ans[maxi])
+                maxi=i;
+        }
+        vector<int> v;
+        v.push_back(nums[maxi]);
+        int tmp=ans[maxi]; //For solution finding in vector
+        tmp--;
+        //String the result in vector v and returning the vector
+        for(int i=maxi+1;i<n && tmp;i++){
+            if(nums[i]%v[v.size()-1]==0 && ans[i]==tmp)
+                v.push_back(nums[i]),tmp--;
+        }
+        return v;
+    }
+};

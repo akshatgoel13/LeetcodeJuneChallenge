@@ -1,2 +1,2 @@
 # LeetcodeJuneChallenge
-Solutions for leetcode June challenge problems
+Uploading the solutions for June leetcode challenge problems for reference.
